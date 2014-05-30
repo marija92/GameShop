@@ -35,14 +35,25 @@
                         TabIndex="3" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtPassword"
                         Display="None" ErrorMessage="Внесете цена!"></asp:RequiredFieldValidator>
+                   
                 </div>
 
 
                 <div class="form-group">
-                    <asp:TextBox ID="txtUserName" class="form-control input-lg" placeholder="тип на игра"
-                        TabIndex="7" runat="server"></asp:TextBox>
+                   
+                         <asp:DropDownList ID="txtUserName" class="form-control input-lg" placeholder="тип на игра"
+                        TabIndex="7" runat="server">
+                             <asp:ListItem>-тип на игра-</asp:ListItem>
+                             <asp:ListItem>Action</asp:ListItem>
+                             <asp:ListItem>Adventure</asp:ListItem>
+                             <asp:ListItem>FPS</asp:ListItem>
+                             <asp:ListItem>Strategy</asp:ListItem>
+                             <asp:ListItem>RPG</asp:ListItem>
+                             <asp:ListItem>Sports</asp:ListItem>
+                             <asp:ListItem>Racing</asp:ListItem>
+                    </asp:DropDownList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtUserName"
-                        Display="None" ErrorMessage="Внесете тип на игра!"></asp:RequiredFieldValidator>
+                        Display="None" ErrorMessage="Внесете тип на игра!" InitialValue="-тип на игра-"></asp:RequiredFieldValidator>
                 </div>
 
 
@@ -60,7 +71,8 @@
                     <h2>
                         <small>прикачи слика од играта</small></h2>
                     <asp:FileUpload ID="FileUploadControl" runat="server" />
-                    <asp:Button runat="server" ID="UploadButton" Text="Аплоадирај!" OnClick="UploadButton_Click" />
+                    <asp:Button runat="server" ID="UploadButton" Text="Upload!" 
+                        OnClick="UploadButton_Click" />
                     <br />
                     <br />
                     <asp:Label runat="server" ID="StatusLabel" Text="Upload status: " />
