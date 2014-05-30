@@ -32,12 +32,12 @@ public partial class deletegame : System.Web.UI.Page
 
             con.Open();
 
-            //SqlCommand cmd = new SqlCommand("Select * from igra", con);
+           
             SqlCommand cmd = new SqlCommand("Select * from game", con);
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
-            da.Fill(ds, "Igra");
+            da.Fill(ds, "Game");
             int count = ds.Tables[0].Rows.Count;
             con.Close();
             if (ds.Tables[0].Rows.Count > 0)
@@ -75,7 +75,7 @@ public partial class deletegame : System.Web.UI.Page
 
         string id = gridView.DataKeys[e.RowIndex].Values["id"].ToString();
         TextBox name = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtname");
-        TextBox pic_location = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtlocaton");
+        TextBox pic_location = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtlocation");
         TextBox game_type = (TextBox)gridView.Rows[e.RowIndex].FindControl("txttype");
         TextBox description = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtdes");
         TextBox price = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtprice");
@@ -86,10 +86,14 @@ public partial class deletegame : System.Web.UI.Page
         try
         {
             con.Open();
-            //SqlCommand cmd = new SqlCommand("update igra set name='" + name.Text + "', pic_location='" + pic_location.Text + "', game_type='" + game_type.Text + "', description='" + description.Text + "', price='" + price.Text + "', bought='" + bought.Text + "', num_avail='" + num_avail.Text + "' where id=" + id, con);
-            SqlCommand cmd = new SqlCommand("update game set name='" + name.Text + "', pic_location='" + pic_location.Text + "', game_type='" + game_type.Text + "', description='" + description.Text + "', price='" + price.Text + "', bought='" + bought.Text + "', num_avail='" + num_avail.Text + "' where id=" + id, con);
+             SqlCommand cmd = new SqlCommand("update game set name='" + name.Text + "', pic_location='" + pic_location.Text + "', game_type='" + game_type.Text + "', description='" + description.Text + "', price='" + price.Text + "', bought='" + bought.Text + "', num_avail='" + num_avail.Text + "' where id=" + id, con);
 
             cmd.ExecuteNonQuery();
+            lblmsg.BackColor = Color.Blue;
+            lblmsg.ForeColor = Color.White;
+            lblmsg.Text = id + "        Успешно направена промена!!!    ";
+            gridView.EditIndex = -1;
+            loadGames();
         }
         catch (Exception err) {
             lblmsg.Text = err.Message;
@@ -99,11 +103,7 @@ public partial class deletegame : System.Web.UI.Page
             con.Close();
         }
 
-        lblmsg.BackColor = Color.Blue;
-        lblmsg.ForeColor = Color.White;
-        lblmsg.Text = id + "        Updated successfully........    ";
-        gridView.EditIndex = -1;
-        loadGames();
+       
     }
     protected void gridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
@@ -120,7 +120,6 @@ public partial class deletegame : System.Web.UI.Page
 
         string id = gridView.DataKeys[e.RowIndex].Values["id"].ToString();
         con.Open();
-//        SqlCommand cmd = new SqlCommand("delete from igra where id=" + id, con);
         SqlCommand cmd = new SqlCommand("delete from game where id=" + id, con);
 
         int result = cmd.ExecuteNonQuery();
@@ -130,7 +129,7 @@ public partial class deletegame : System.Web.UI.Page
             loadGames();
             lblmsg.BackColor = Color.Red;
             lblmsg.ForeColor = Color.White;
-            lblmsg.Text = id + "      Deleted successfully.......    ";
+            lblmsg.Text = id + "      Успeшно избришана игра!!!    ";
         }
     }
     protected void gridView_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -145,48 +144,5 @@ public partial class deletegame : System.Web.UI.Page
             }
         }
     }
-    protected void gridView_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        SqlConnection con = new SqlConnection();
-        con.ConnectionString = ConfigurationManager.ConnectionStrings["MyCon"].ConnectionString;
-
-        //marta
-        //con.ConnectionString = "Data Source=dell-PC\\SQLEXPRESS;Integrated Security=True";
-
-
-        if (e.CommandName.Equals("AddNew"))
-        {
-            TextBox inid = (TextBox)gridView.FooterRow.FindControl("inid");
-            TextBox inname = (TextBox)gridView.FooterRow.FindControl("inname");
-            TextBox inlocation = (TextBox)gridView.FooterRow.FindControl("inlocation");
-            TextBox intype = (TextBox)gridView.FooterRow.FindControl("intype");
-            TextBox indes = (TextBox)gridView.FooterRow.FindControl("indes");
-            TextBox inprice = (TextBox)gridView.FooterRow.FindControl("inprice");
-            TextBox inb = (TextBox)gridView.FooterRow.FindControl("inb");
-            TextBox innum = (TextBox)gridView.FooterRow.FindControl("innum");
-
-            con.Open();
-            SqlCommand cmd =
-                new SqlCommand(
-                    //"insert into igra(id,name,pic_location,game_type,description,price,bought,num_avail) values('" + inid.Text + "','" +
-                      "insert into game(id,name,pic_location,game_type,description,price,bought,num_avail) values('" + inid.Text + "','" +
-
-                    inname.Text + "','" + inlocation.Text + "','" + intype.Text + "','" + indes.Text + "','" + inprice.Text + "','" + inb.Text + "','" + innum.Text + "')", con);
-            int result = cmd.ExecuteNonQuery();
-            con.Close();
-            if (result == 1)
-            {
-                loadGames();
-                lblmsg.BackColor = Color.Green;
-                lblmsg.ForeColor = Color.White;
-                lblmsg.Text = inid.Text + "      Added successfully......    ";
-            }
-            else
-            {
-                lblmsg.BackColor = Color.Red;
-                lblmsg.ForeColor = Color.White;
-                lblmsg.Text = inid.Text + " Error while adding row.....";
-            }
-        }
-    }
+    
 }
