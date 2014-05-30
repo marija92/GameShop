@@ -19,7 +19,7 @@
 							<div class="col-xs-6">
 							
 								<!--redirect do welcome-->
-								<a href="Welcome.aspx" class="btn btn-primary btn-sm btn-block">
+								<a href="welcome.aspx" class="btn btn-primary btn-sm btn-block">
 									 <span class="glyphicon glyphicon-share-alt"></span>Продолжи со купување
 								</a>
 							</div>
@@ -48,9 +48,10 @@
 						
 						
 							<!-- da gi brise site igri od sesija i da izvesti oti e izvrsena simulacija na kupuvanje -->
-							<asp:Button ID="btnKupi" runat="server"  Text="Купи" type="submit" class="btn btn-success btn-block" OnClick="btnKupi_Click">
-								
-							</asp:Button>
+							
+                            <asp:Button runat="server" ID="buyButton" Text="Купи" 
+                                class="btn btn-success btn-block" onclick="buyButton_Click"/>
+
 						</div>
 					</div>
 				</div>
@@ -64,6 +65,34 @@
 	
     <!-- /.container -->
 	</div>
+
+
+     <!-- Modal -->            
+			<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" style="background-color: #101010;">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true"">&times;</button>
+							<h4 class="modal-title" id="myModalLabel" style="color: #999;">Порака</h4>
+						</div>
+
+						<div class="modal-body">Изврешена е симулација на купување на игрите!</div>
+
+						<div class="modal-footer">
+							<button id="close" type="button" class="btn btn-primary"
+								data-dismiss="modal">Затвори</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
+
+
 </asp:Content> 
     
 

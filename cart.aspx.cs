@@ -12,18 +12,27 @@ public partial class cart : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        String emptyCart = (String)Request.QueryString["emptyCart"];
         String currentUser = (String)Session["korisnik"];
         if (currentUser == null || currentUser.Equals("admin"))
         {
             Response.Redirect("~/Welcome.aspx");
         }
-        else {
+        else if (emptyCart != null && emptyCart.Equals("true")) {
+
+            String script = "$(document).ready(function(){$(\"#modal\").modal('show')})";
+
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", script, true);        
+        }
+        else
+        {
             SqlConnection konekcija = new SqlConnection();
             konekcija.ConnectionString = ConfigurationManager.ConnectionStrings["myCon"].ConnectionString;
 
             Dictionary<string, int> games = (Dictionary<string, int>)Session["kosnicka"];
 
-            if (games != null) {
+            if (games != null)
+            {
 
                 int sum = 0;
 
@@ -69,13 +78,13 @@ public partial class cart : System.Web.UI.Page
                             System.Web.UI.HtmlControls.HtmlGenericControl inDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
                             inDiv.ID = "in" + id;
                             inDiv.Attributes.Add("class", "col-xs-4");
-                            inDiv.Attributes.Add("style", "width:40%");
+                            inDiv.Attributes.Add("style", "width:50%");
 
                             //div price, value, button
                             System.Web.UI.HtmlControls.HtmlGenericControl bigDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
                             bigDiv.ID = "big" + id;
                             bigDiv.Attributes.Add("class", "col-xs-6");
-                            bigDiv.Attributes.Add("style", "width:40%");
+                            bigDiv.Attributes.Add("style", "width:30%");
 
                             //div price
                             System.Web.UI.HtmlControls.HtmlGenericControl priceDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
@@ -121,8 +130,7 @@ public partial class cart : System.Web.UI.Page
 
                             Label lprice = new Label();
                             lprice.ID = "lprice" + id;
-                            lprice.Text = price+" ден.";
-                            lprice.Font.Size = 12;
+                            lprice.Text = price + "$";
                             lprice.Attributes.Add("class", "text-muted");
                             priceDiv.Controls.Add(lprice);
                             //inDiv.Controls.Add(new LiteralControl("<br />"));
@@ -132,21 +140,27 @@ public partial class cart : System.Web.UI.Page
                             TextBox tbvalue = new TextBox();
                             tbvalue.ID = "tb." + id;
                             tbvalue.Text = val.ToString();
-                            tbvalue.AutoPostBack = true;
                             tbvalue.TextChanged += new EventHandler(tbvalue_TextChanged);
                             tbvalue.Attributes.Add("class", "quantity form-control input-sm");
                             inputDiv.Controls.Add(tbvalue);
 
-
+                            /*
                             Button btn = new Button();
                             btn.ID = id;
-                            btn.Text = "X";
-                            btn.Font.Bold = true;
-                            btn.Attributes.Add("class", "btn btn-danger btn-mini");
+                            btn.Text = "Избриши";
+                            btn.Attributes.Add("class", "glyphicon glyphicon-trash");
                             btn.CausesValidation = false;
-                            btn.Click += new EventHandler(btn_Click);                            
+                            btn.Click += new EventHandler(btn_Click);
                             deleteDiv.Controls.Add(btn);
-                            
+                             * */
+
+                            ImageButton btn = new ImageButton();
+                            btn.ID = id;
+                            btn.ImageUrl = "trash.png";
+                            btn.Height = 25;
+                            btn.Width = 25;
+                            btn.Click += new ImageClickEventHandler(btn_Click);
+                            deleteDiv.Controls.Add(btn);
 
 
                             createDiv.Controls.Add(imgDiv);
@@ -172,12 +186,12 @@ public partial class cart : System.Web.UI.Page
                         konekcija.Close();
                     }
                 }
-                lblVkupno.Text = sum.ToString();
+                lblVkupno.Text = sum.ToString() + "$";
             }
-        
-            
-            
-            }
+
+
+
+        }
 
             
     }
@@ -198,10 +212,8 @@ public partial class cart : System.Web.UI.Page
     }
     protected void btn_Click(object sender, EventArgs e)
     {
-        if (Session["korisnik"] != null)
-        {
             Dictionary<string, int> games = (Dictionary<string, int>)Session["kosnicka"];
-            Button b = (Button)sender;
+            ImageButton b = (ImageButton)sender;
             string id = b.ID;
             if (games.ContainsKey(id))
             {
@@ -209,24 +221,15 @@ public partial class cart : System.Web.UI.Page
             }
             Session["kosnicka"] = games;
             Response.Redirect("cart.aspx");
-        }
-        else { 
-        
-
-        
-        }
-
-        
+                
     }
 
 
-    protected void btnKupi_Click(object sender, EventArgs e)
-    {
-        Dictionary<string, int> games = new Dictionary<string, int>();
-        Session["kosnicka"] = games;
-        //alert za uspesno kupuvanje
-        String script = "$(document).ready(function(){$(\"#modal\").modal('show')})";
-        ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", script, true);
-        Response.Redirect("cart.aspx");
+    protected void buyButton_Click(object sender, EventArgs e)
+    {        
+
+        Session["kosnicka"] = new Dictionary<string, int>();
+
+        Response.Redirect("~/cart.aspx?emptyCart=true");
     }
 }

@@ -10,7 +10,7 @@ using System.Configuration;
 
 public partial class Welcome : System.Web.UI.Page
 {
-    public static Dictionary<string, int> dic = new Dictionary<string, int>();
+    public Dictionary<string, int> dic = new Dictionary<string,int>();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -82,12 +82,13 @@ public partial class Welcome : System.Web.UI.Page
                     inDiv.Controls.Add(ldes);
                     inDiv.Controls.Add(new LiteralControl("<br />"));
 
+                    
                     Button btn = new Button();
                     btn.ID = id;
                     btn.Text = "Купи";
                     btn.Attributes.Add("class", "btn btn-primary");
                     btn.Click+=new EventHandler(btn_Click);
-                    inDiv.Controls.Add(btn);
+                    inDiv.Controls.Add(btn);     
                    
 
                     imgDiv.Controls.Add(inDiv);
@@ -112,21 +113,24 @@ public partial class Welcome : System.Web.UI.Page
     {
         if (Session["korisnik"] != null)
         {
-
-            Button b = (Button)sender;
-            string id = b.ID;
-            if (dic.ContainsKey(id))
-            {
-                dic[id] = dic[id] + 1;
+            if (Session["kosincka"] != null) {
+                dic = (Dictionary<string, int>)Session["kosnicka"];
             }
-            else
-            {
-                dic.Add(id, 1);
-            }
+                
+                Button b = (Button)sender;
+                string id = b.ID;
+                if (dic.ContainsKey(id))
+                {
+                    dic[id] = dic[id] + 1;
+                }
+                else
+                {
+                    dic.Add(id, 1);
+                }
 
-            Session["kosnicka"] = dic;
-            Console.WriteLine(Session["kosnicka"].ToString());
-            Response.Redirect("~/cart.aspx");
+                Session["kosnicka"] = dic;
+                Console.WriteLine(Session["kosnicka"].ToString());
+                Response.Redirect("~/cart.aspx");                
 
         }
         else {
