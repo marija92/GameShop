@@ -1,9 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="deletegame.aspx.cs" Inherits="deletegame" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master" CodeFile="deletegame.aspx.cs" Inherits="deletegame" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
-    <title>DeleteGames</title>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="head">
 <script type="text/javascript">
     function deleteConfirm(pubid) {
         var result = confirm('Do you want to delete ' + name + ' ?');
@@ -15,11 +12,13 @@
         }
     }
 </script>
-</head>
-<body>
-    <form id="form1" runat="server">
+</asp:Content>
+
+
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+
 <div>
-<asp:GridView ID="gridView" DataKeyNames="id" runat="server"
+<asp:GridView ID="gridView" DataKeyNames="id" runat="server"        
         AutoGenerateColumns="False" ShowFooter="True" HeaderStyle-Font-Bold="true"
         onrowcancelingedit="gridView_RowCancelingEdit"
         onrowdeleting="gridView_RowDeleting"
@@ -130,6 +129,6 @@
 <br />&nbsp;&nbsp;&nbsp;&nbsp;
 <asp:Label ID="lblmsg" runat="server"></asp:Label>
 </div>
-    </form>
-</body>
-</html>
+
+
+</asp:Content>
