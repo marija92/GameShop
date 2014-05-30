@@ -1,0 +1,218 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+
+    <title>Игри</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- css -->
+    <link href="~/Styles/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Styles/heroic-features.css" rel="stylesheet"/>
+    
+    <!--
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.0.1-p7/css/bootstrap.min.css">
+    -->
+
+    <!-- js -->
+
+    <script src='<%=ResolveClientUrl("~/Scripts/jquery-1.9.1.js") %>' 
+    type="text/javascript"></script>
+
+    <script src='<%=ResolveClientUrl("~/Scripts/bootstrap-carousel.js") %>' 
+    type="text/javascript"></script>
+
+    <script src='<%=ResolveClientUrl("~/Scripts/bootstrap.js") %>' 
+    type="text/javascript"></script>
+
+    <script src='<%=ResolveClientUrl("~/Scripts/bootstrap.file-input.js") %>' 
+    type="text/javascript"></script>
+
+    
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.0.1-p7/js/bootstrap.min.js"></script>
+
+    
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Setup drop down menu
+            $('.dropdown-toggle').dropdown();
+
+            // Fix input element click problem
+            $('.dropdown input, .dropdown label').click(function (e) {
+                e.stopPropagation();
+            });
+
+            $('#log-in').click(function () {
+                $('.dropdown-toggle').dropdown('toggle');
+            })
+
+        })
+
+    </script>
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+
+<body>
+    <form id="form1" runat="server">
+    <div>
+
+
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+        
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                
+                    
+                    <li><asp:HyperLink ID="HyperLink1" class="navbar-brand" NavigateUrl="~/Welcome.aspx" runat="server">Почетна</asp:HyperLink></li>
+
+
+
+                	<li class="dropdown">
+		            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Игри
+                    <strong class="caret"></strong></a>
+		            	<ul class="dropdown-menu">		            	
+                            
+                            <li><a href="gametype.aspx?type=Action">Action</a></li>
+                            <li><a href="gametype.aspx?type=Adventure">Adventure</a></li>
+                            <li><a href="gametype.aspx?type=FPS">FPS</a></li>
+                            <li><a href="gametype.aspx?type=Strategy">Strategy</a></li>
+                            <li><a href="gametype.aspx?type=RPG">RPG</a></li>
+                            <li><a href="gametype.aspx?type=Sports">Sports</a></li>
+                            <li><a href="gametype.aspx?type=Racing">Racing</a></li>		            			            	
+							
+		            	</ul>
+		          	</li>
+		          		
+		          	
+		          	<li><a href="recomended.aspx">Препорачани</a></li>         
+                    
+                    
+                    <!-- if implemented ANGULAR JS -->
+
+                    <!--search
+
+                    <form class="navbar-form navbar-left" role="search">
+				        <div class="form-group">
+				          <input ng-model="query" type="text" class="form-control" placeholder="Search">
+				        </div>
+				    </form> 
+
+                    -->
+                             
+                </ul>		        
+		        
+		        
+		        
+                <ul class="nav navbar-nav navbar-right">
+                
+                <!-- има најавен -->
+
+                <li><asp:HyperLink ID="najavenLink" runat="server">Најавен како</asp:HyperLink></li>
+                
+                <!-- администратор -->
+				
+		          <li class="dropdown">
+		            <asp:HyperLink ID="adminLink" class="dropdown-toggle" data-toggle="dropdown" runat="server">Администратор</asp:HyperLink>
+						<ul class="dropdown-menu">
+                          <li><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/addgame.aspx">Додади игра</asp:HyperLink></li>
+			              <li><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/deletegame.aspx">Избриши/Измени игра</asp:HyperLink></li>			              
+		            	</ul>
+
+		          </li>
+		        	
+				
+				<!-- Регистрирај се -->
+		        
+                    <li><asp:HyperLink ID="registriranLink" runat="server" NavigateUrl="~/register.aspx">Регистрирај се</asp:HyperLink></li>
+				
+				
+				 <!-- Кошничка -->
+
+                    <li><asp:HyperLink NavigateUrl="~/cart.aspx" ID="kosnickaLink" runat="server">Кошничка</asp:HyperLink></li>
+		        
+		        <!-- Одјави се -->		
+                
+                    <li><asp:HyperLink ID="logoutLink" NavigateUrl="~/logout.aspx" runat="server">Одјави се</asp:HyperLink></li>
+
+
+				<!-- најава --> 
+                  
+		          <li class="dropdown">
+
+                    <asp:HyperLink class="dropdown-toggle" href="#" data-toggle="dropdown" ID="najavaLink" runat="server">Најава <strong class="caret"></strong></asp:HyperLink>
+		           
+		            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">		              
+							
+                              
+                                                            
+
+                                <asp:TextBox ID="username" style="margin-bottom: 15px;" placeholder="Корисничко име" 
+                                class="form-control input-sm" runat="server"></asp:TextBox>
+                                
+                                <asp:TextBox ID="password" style="margin-bottom: 15px;" placeholder="Лозинка" 
+                                class="form-control input-sm" runat="server" TextMode="Password"></asp:TextBox>
+								
+                                <asp:CheckBox style="float: left; margin-right: 10px;" ID="rememberMe" runat="server"></asp:CheckBox>
+
+								<label class="string optional" for="user_remember_me">Запомни ме </label>
+	
+                                <asp:Button ID="loginBtn" CausesValidation="false" runat="server" class="btn btn-primary btn-block" onclick="loginBtn_Click"
+                                style="margin-bottom: 15px;" Text="најави се" />
+
+                                <asp:Label ID="lblGreska" Visible="false" runat="server" Text="Label"></asp:Label>
+
+
+
+		            </div>
+
+
+		          </li>
+
+		          
+		        </ul>
+		        
+		        
+		        
+                
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+
+
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
