@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage.master"
-    CodeFile="addgame.aspx.cs" Inherits="addgame" %>
+    CodeFile="addgame.aspx.cs" Inherits="addgame" EnableEventValidation="false" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="head">
 </asp:Content>
