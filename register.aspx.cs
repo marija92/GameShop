@@ -46,6 +46,8 @@ public partial class register : System.Web.UI.Page
 
         if (ef != 0)
         {
+            Session["korisnik"] = txtUserName.Text;
+            Response.Redirect("~/Welcome.aspx?reg=true");
             lblPoraka.Text = "Успешно се регистриравте";
             txtConfirm.Text = "";
             txtEmail.Text = "";

@@ -14,6 +14,13 @@ public partial class Welcome : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        String reg = Request.QueryString["reg"];
+        if (reg!=null && reg.Equals("true")) {
+
+            String script = "$(document).ready(function(){$(\"#modalReg\").modal('show')})";
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", script, true);
+        
+        }
         Dictionary<string, int> dic = (Dictionary<string, int>)Session["kosnicka"];
 
             SqlConnection konekcija = new SqlConnection();

@@ -87,6 +87,30 @@
 			</div>
 			<!-- /.modal -->
 
+            <!-- Modal -->            
+			<div class="modal fade" id="modalReg" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header" style="background-color: #101010;">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true"">&times;</button>
+							<h4 class="modal-title" id="H1" style="color: #999;">Порака</h4>
+						</div>
+
+						<div class="modal-body">Успешно се регистриравте!</div>
+
+						<div class="modal-footer">
+							<button id="Button1" type="button" class="btn btn-primary"
+								data-dismiss="modal">Затвори</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+
 
 
 </asp:Content> 
