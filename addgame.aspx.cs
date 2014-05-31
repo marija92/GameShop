@@ -60,7 +60,7 @@ public partial class addgame : System.Web.UI.Page
         komanda.CommandText = "INSERT INTO game(name,pic_location,game_type,description,price,num_avail) VALUES (@fn,@ln,@un,@em,@ps,@e) ";
         komanda.Parameters.AddWithValue("@fn", txtName.Text);
         string filename = lblPicName.Text;
-        string path = Server.MapPath("~/") + filename;
+        string path = Server.MapPath("~/img/") + filename;
         komanda.Parameters.AddWithValue("@ln", path);
         komanda.Parameters.AddWithValue("@un", txtUserName.Text);
         komanda.Parameters.AddWithValue("@ps", txtPassword.Text);
@@ -101,7 +101,7 @@ public partial class addgame : System.Web.UI.Page
                     if (FileUploadControl.PostedFile.ContentLength < 1002400)
                     {
                         string filename = Path.GetFileName(FileUploadControl.FileName);
-                        FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
+                        FileUploadControl.SaveAs(Server.MapPath("~/img/") + filename);
 
                         StatusLabel.Text = "Upload status: File uploaded! ";
                         lblPicName.Text = FileUploadControl.FileName;
