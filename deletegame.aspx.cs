@@ -82,25 +82,42 @@ public partial class deletegame : System.Web.UI.Page
         TextBox bought = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtb");
         TextBox num_avail = (TextBox)gridView.Rows[e.RowIndex].FindControl("txtnum");
 
+        SqlCommand com = new SqlCommand();
+        com.Connection = con;
+        com.CommandText = "UPDATE game SET  name=@ImeNaKompanija,  pic_location=@c, game_type=@g, description=@d,  price=@p,  num_avail=@n WHERE id=@id";
+    
+        com.Parameters.AddWithValue("@ImeNaKompanija", name.Text);
+        com.Parameters.AddWithValue("@c", pic_location.Text);             
+        com.Parameters.AddWithValue("@g", game_type.Text);
+        com.Parameters.AddWithValue("@d", description.Text);
+        com.Parameters.AddWithValue("@p", price.Text);
+        com.Parameters.AddWithValue("@n", num_avail.Text);
+        com.Parameters.AddWithValue("@id", id);
 
+        
+       
+        int ef = 0;
         try
         {
             con.Open();
-             SqlCommand cmd = new SqlCommand("update game set name='" + name.Text + "', pic_location='" + pic_location.Text + "', game_type='" + game_type.Text + "', description='" + description.Text + "', price='" + price.Text + "', bought='" + bought.Text + "', num_avail='" + num_avail.Text + "' where id=" + id, con);
+            ef = com.ExecuteNonQuery();
 
-            cmd.ExecuteNonQuery();
-            lblmsg.BackColor = Color.Blue;
-            lblmsg.ForeColor = Color.White;
-            lblmsg.Text = id + "        Успешно направена промена!!!    ";
-            gridView.EditIndex = -1;
-            loadGames();
+
         }
-        catch (Exception err) {
-            lblmsg.Text = err.Message;
+        catch (Exception ex)
+        {
+            lblmsg.Text = ex.Message;
+            gridView.EditIndex = -1;
         }
         finally
         {
+
             con.Close();
+        }
+        if (ef != 0)
+        {
+            loadGames();
+            lblmsg.Text = "Успешно апдејтиравте игра!";
         }
 
        
