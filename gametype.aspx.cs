@@ -14,7 +14,7 @@ public partial class gametype : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
             Dictionary<string, int> dic = (Dictionary<string,int>)Session["kosnicka"];
-
+            
             SqlConnection konekcija = new SqlConnection();
             konekcija.ConnectionString = ConfigurationManager.ConnectionStrings["myCon"].ConnectionString;
 
@@ -126,7 +126,7 @@ public partial class gametype : System.Web.UI.Page
             }
 
             Session["kosnicka"] = dic;
-            Console.WriteLine(Session["kosnicka"].ToString());
+           
             Response.Redirect("~/cart.aspx");
         }
         else

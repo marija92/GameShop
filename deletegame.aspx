@@ -17,6 +17,7 @@
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
 
+    <br />
 <div>
 <asp:GridView ID="gridView" DataKeyNames="id" runat="server"        
         AutoGenerateColumns="False" ShowFooter="True" HeaderStyle-Font-Bold="true"
@@ -79,15 +80,6 @@
      </ItemTemplate>
     <EditItemTemplate>
          <asp:TextBox ID="txtprice" width="30px"  runat="server" Text='<%#Eval("price") %>'/>
-     </EditItemTemplate>
-    
- </asp:TemplateField>
- <asp:TemplateField HeaderText="Број на купени">
-     <ItemTemplate>
-         <asp:Label ID="lblb" runat="server" Text='<%#Eval("bought") %>'/>
-     </ItemTemplate>
-    <EditItemTemplate>
-         <asp:TextBox ID="txtb" width="30px"  runat="server" Text='<%#Eval("bought") %>'/>
      </EditItemTemplate>
     
  </asp:TemplateField>

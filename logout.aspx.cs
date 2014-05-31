@@ -23,7 +23,9 @@ public partial class logout : System.Web.UI.Page
                 Response.SetCookie(cookie);
             }
 
+            Session["kosnicka"] = null;
             Response.Redirect("Welcome.aspx");
+            
         
         }
     }
