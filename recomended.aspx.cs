@@ -115,6 +115,12 @@ public partial class recomended : System.Web.UI.Page
         {
             Button b = (Button)sender;
             string id = b.ID;
+            if (Session["kosnicka"] == null)
+            {
+                Session["kosnicka"] = new Dictionary<string, int>();
+            }
+            Dictionary<string, int> dic = (Dictionary<string, int>)Session["kosnicka"];
+
             if (dic.ContainsKey(id))
             {
                 dic[id] = dic[id] + 1;
@@ -123,9 +129,8 @@ public partial class recomended : System.Web.UI.Page
             {
                 dic.Add(id, 1);
             }
-
             Session["kosnicka"] = dic;
-            Console.WriteLine(Session["kosnicka"].ToString());
+
             Response.Redirect("~/cart.aspx");
         }
         else

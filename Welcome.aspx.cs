@@ -122,34 +122,35 @@ public partial class Welcome : System.Web.UI.Page
     {
         if (Session["korisnik"] != null)
         {
-            if (Session["kosincka"] != null) {
-                dic = (Dictionary<string, int>)Session["kosnicka"];
+            Button b = (Button)sender;
+            string id = b.ID;
+            if (Session["kosnicka"] == null)
+            {
+                Session["kosnicka"] = new Dictionary<string, int>();
             }
-                
-                Button b = (Button)sender;
-                string id = b.ID;
-                if (dic.ContainsKey(id))
-                {
-                    dic[id] = dic[id] + 1;
-                }
-                else
-                {
-                    dic.Add(id, 1);
-                }
+            Dictionary<string, int> dic = (Dictionary<string, int>)Session["kosnicka"];
 
-                Session["kosnicka"] = dic;
-                Console.WriteLine(Session["kosnicka"].ToString());
-                Response.Redirect("~/cart.aspx");                
+            if (dic.ContainsKey(id))
+            {
+                dic[id] = dic[id] + 1;
+            }
+            else
+            {
+                dic.Add(id, 1);
+            }
+            Session["kosnicka"] = dic;
 
+            Response.Redirect("~/cart.aspx");
         }
-        else {
+        else
+        {
 
-            String script = "$(document).ready(function(){$(\"#modal\").modal('show')})";            
+            String script = "$(document).ready(function(){$(\"#modal\").modal('show')})";
 
             ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", script, true);
-        
+
         }
-        
+
     }
 
     public string Truncate(string value, int maxChars)

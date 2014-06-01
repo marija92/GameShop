@@ -10,7 +10,7 @@ using System.Configuration;
 
 public partial class gametype : System.Web.UI.Page
 {
-    public static Dictionary<string, int> dic = new Dictionary<string, int>();
+    //public static Dictionary<string, int> dic = new Dictionary<string, int>();
     protected void Page_Load(object sender, EventArgs e)
     {
             Dictionary<string, int> dic = (Dictionary<string,int>)Session["kosnicka"];
@@ -116,17 +116,22 @@ public partial class gametype : System.Web.UI.Page
         {
             Button b = (Button)sender;
             string id = b.ID;
+            if (Session["kosnicka"] == null)
+            {
+                Session["kosnicka"] = new Dictionary<string, int>();
+            }
+            Dictionary<string, int> dic = (Dictionary<string, int>)Session["kosnicka"];
+            
             if (dic.ContainsKey(id))
             {
                 dic[id] = dic[id] + 1;
             }
             else
             {
-                dic.Add(id, 1);
+               dic.Add(id, 1);
             }
-
-            Session["kosnicka"] = dic;
-           
+            Session["kosnicka"] = dic;            
+                       
             Response.Redirect("~/cart.aspx");
         }
         else

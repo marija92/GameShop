@@ -94,6 +94,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             kosnickaLink.Visible = false;
             logoutLink.Visible = false;
             najavaLink.Visible = true;
+            recomendedLink.Visible = false;
+            
         }
 
         else if (username.Equals("admin"))
@@ -105,6 +107,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             kosnickaLink.Visible = false;
             logoutLink.Visible = true;
             najavaLink.Visible = false;
+            recomendedLink.Visible = false;
         }
 
         else if (!username.Equals("admin"))
@@ -116,7 +119,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             kosnickaLink.Visible = true;
             logoutLink.Visible = true;
             najavaLink.Visible = false;
-
+            recomendedLink.Visible = true;
             lblGreska.Text = "setvisibility called";
         }
 

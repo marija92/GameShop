@@ -110,8 +110,8 @@
 		          	</li>
 		          		
 		          	
-		          	<li><a href="recomended.aspx">Препорачани</a></li>         
-                    
+		          	<li><asp:HyperLink ID="recomendedLink" NavigateUrl="~/recomended.aspx" runat="server">Препорачани</asp:HyperLink></li>
+
                     
                     <!-- if implemented ANGULAR JS -->
 
