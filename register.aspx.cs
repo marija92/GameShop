@@ -14,12 +14,42 @@ public partial class register : System.Web.UI.Page
 
     }
     protected void btnRegister_Click(object sender, EventArgs e)
-    {        
+    {
+        bool flag=true;
         SqlConnection konekcija = new SqlConnection();
+
+        konekcija.ConnectionString = ConfigurationManager.ConnectionStrings["myCon"].ConnectionString;
+
+        SqlCommand komanda = new SqlCommand();
+        komanda.Connection = konekcija;
+        komanda.CommandText = "SELECT * FROM users WHERE username=@uname";
+        komanda.Parameters.AddWithValue("@uname", txtUserName.Text);
+        try
+        {
+            konekcija.Open();
+           SqlDataReader reader=komanda.ExecuteReader();
+            if(reader.Read())
+            {
+                lblPoraka.Text="Веќе постои корисник со истото корисничко име.";
+                flag=false;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblPoraka.Text = ex.Message;
+        }
+        finally
+        {
+            konekcija.Close();
+        }
+
+
+        if(flag){
+         konekcija = new SqlConnection();
         
         konekcija.ConnectionString = ConfigurationManager.ConnectionStrings["myCon"].ConnectionString;
         
-        SqlCommand komanda = new SqlCommand();
+        komanda = new SqlCommand();
         komanda.Connection = konekcija;
         komanda.CommandText = "INSERT INTO users(first_name,last_name,username, email, password, game_type) VALUES (@fn,@ln,@un,@em,@ps,@gt) ";
         komanda.Parameters.AddWithValue("@fn", txtName.Text);
@@ -58,5 +88,6 @@ public partial class register : System.Web.UI.Page
             txtUserName.Text = "";
         }
          
+    }
     }
 }
