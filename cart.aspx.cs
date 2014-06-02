@@ -141,6 +141,7 @@ public partial class cart : System.Web.UI.Page
                             tbvalue.ID = "tb." + id;
                             tbvalue.Text = val.ToString();
                             tbvalue.TextChanged += new EventHandler(tbvalue_TextChanged);
+                            tbvalue.AutoPostBack = true;
                             tbvalue.Attributes.Add("class", "quantity form-control input-sm");
                             inputDiv.Controls.Add(tbvalue);
 
